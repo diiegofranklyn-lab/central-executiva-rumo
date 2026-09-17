@@ -1,0 +1,8 @@
+/* Correção definitiva do layout do dashboard */
+.app main{margin-left:260px!important;min-height:100vh!important;background:#f2f5f8!important;position:relative!important}
+.hero{position:relative!important;left:auto!important;right:auto!important;top:auto!important;width:100%!important;height:166px!important;margin:0!important;display:block!important;z-index:2!important}
+.content{position:relative!important;padding:10px 10px 24px!important;margin:0!important;display:block!important;min-height:0!important}
+.cards,.top-grid,.shortcuts,.bottom-grid{position:relative!important;display:grid!important}
+.cards{grid-template-columns:repeat(5,1fr)!important;gap:10px!important}
+@media(max-width:1100px){.app main{margin-left:220px!important}.cards{grid-template-columns:repeat(3,1fr)!important}}
+@media(max-width:700px){.app main{margin-left:0!important}.cards{grid-template-columns:1fr!important}.content{padding:8px!important}.hero{width:100%!important}}
