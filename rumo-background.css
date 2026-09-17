@@ -1,0 +1,14 @@
+/* Identidade visual Rumo: fotografia real de trem em operação */
+.app aside{
+  background-image:linear-gradient(180deg,rgba(2,31,64,.80),rgba(0,13,30,.94)),url('https://upload.wikimedia.org/wikipedia/commons/7/7f/Trem_cargueiro_%28Rumo_Log%C3%ADstica%29%2C_Pinhais.jpg');
+  background-position:center center;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.hero{
+  background-image:linear-gradient(90deg,rgba(2,31,64,.78),rgba(5,53,98,.38),rgba(0,18,38,.72)),url('https://upload.wikimedia.org/wikipedia/commons/7/7f/Trem_cargueiro_%28Rumo_Log%C3%ADstica%29%2C_Pinhais.jpg') !important;
+  background-position:center 52% !important;
+  background-size:cover !important;
+  background-repeat:no-repeat !important;
+}
+.hero:before{background:linear-gradient(180deg,rgba(0,20,45,.08),rgba(0,15,35,.25)) !important}
