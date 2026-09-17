@@ -1,1 +1,1 @@
-(()=>{const load=(src)=>{const s=document.createElement('script');s.src=src;s.async=false;document.body.appendChild(s)};load('app-core.js?v=20260917-4');load('cleanup-rumo.js?v=20260917-1')})();
+(()=>{const load=(src)=>{const s=document.createElement('script');s.src=src;s.async=false;document.body.appendChild(s)};load('app-core.js?v=20260917-6');load('cleanup-rumo.js?v=20260917-2')})();
