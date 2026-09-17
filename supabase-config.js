@@ -1,0 +1,1 @@
+window.RUMO_SUPABASE_CONFIG={url:'https://tfmbkfkkmxrpuzeiford.supabase.co',key:'sb_publishable_IbExZ3rlfEdxtZN4LYh6Jw_cIPbKKs1'};
