@@ -1,1 +1,1 @@
-(()=>{const load=(src)=>{const s=document.createElement('script');s.src=src;s.async=false;document.body.appendChild(s)};load('app-core.js?v=20260917-6');load('cleanup-rumo.js?v=20260917-2')})();
+(()=>{const load=(src)=>{const s=document.createElement('script');s.src=src;s.async=false;document.body.appendChild(s)};load('supabase-client.js?v=20260917-1');load('app-core.js?v=20260917-7');load('cleanup-rumo.js?v=20260917-2');load('supabase-sync.js?v=20260917-1')})();
