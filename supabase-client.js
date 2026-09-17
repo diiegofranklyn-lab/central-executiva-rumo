@@ -1,0 +1,2 @@
+window.RUMO_SUPABASE_CONFIG={url:'https://tfmbkfkkmxrpuzeiford.supabase.co',key:'sb_publishable_IbExZ3rlfEdxtZN4LYh6Jw_cIPbKKs1'};
+const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';s.async=false;document.head.appendChild(s);
