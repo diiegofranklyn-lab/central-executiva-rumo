@@ -25,7 +25,7 @@
         const unit=byName.get(String(d.unit||'').trim().toLowerCase());
         const row={title:d.title,description:d.description||'',unit_id:unit?.id||null,owner:d.owner||'',priority:d.priority||'Média',status:d.status||'Aberta',due_date:d.due_date||null};
         if(d.db_id)await api('demands?id=eq.'+encodeURIComponent(d.db_id),{method:'PATCH',body:JSON.stringify(row)});
-        else{const created=await api('demands',{method:'POST',body:JSON.stringify(row));if(created[0])d.db_id=created[0].id;}
+        else{const created=await api('demands',{method:'POST',body:JSON.stringify(row)});if(created[0])d.db_id=created[0].id;}
       }
       db.unidades=serverUnits;
       db.demandas=demands;
