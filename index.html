@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Acompanhamento Executivo Rumo | Security</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=20260917-7">
+<style>
+/* Garantia visual do dashboard - não depende do JavaScript */
+#mainNav{display:grid!important;visibility:visible!important}
+#mainNav a{display:flex!important;visibility:visible!important}
+#dashboardView{display:block!important;visibility:visible!important}
+#dashboardView.hidden{display:block!important}
+.content{display:block!important;visibility:visible!important}
+</style>
 </head>
 <body>
 <div class="app">
@@ -45,7 +53,7 @@
       <div class="metric green"><span>✓</span><div><small>Resolvidas</small><strong id="done">0</strong><em>62%</em></div></div>
     </div>
     <div class="top-grid">
-      <div class="panel"><div class="panel-head"><div><h2>Demandas que exigem atenção</h2><p>Acompanhamento das principais pendências.</p></div><button id="addBtn">+ Nova demanda</button></div><div class="filters"><input id="search" placeholder="Buscar demanda, unidade ou responsável..."><select id="statusFilter"><option value="">Todos os status</option><option>Aberta</option><option>Em andamento</option><option>Concluída</option><option>Cancelada</option></select></div><div class="table-wrap"><table><thead><tr><th>ID</th><th>Demanda</th><th>Unidade</th><th>Responsável</th><th>Vencimento</th><th>Status</th><th>Dias</th></tr></thead><tbody id="demandTable"></tbody></table></div></div>
+      <div class="panel"><div class="panel-head"><div><h2>Demandas que exigem atenção</h2><p>Acompanhamento das principais pendências.</p></div><button id="addBtn">+ Nova demanda</button></div><div class="filters"><input id="search" placeholder="Buscar demanda, unidade ou responsável..."><select id="statusFilter"><option value="">Todos os status</option><option>Aberta</option><option>Em andamento</option><option>Concluída</option><option>Cancelada</option></select></div><div class="table-wrap"><table><thead><tr><th>ID</th><th>Demanda</th><th>Unidade</th><th>Responsável</th><th>Vencimento</th><th>Status</th><th>Dias</th></tr></thead><tbody id="demandTable"><tr><td>024</td><td><b>Crachás pendentes</b></td><td>Rondonópolis</td><td>João Silva</td><td>18/09/2026</td><td><span class="status-pill open">Aberta</span></td><td>1</td></tr><tr><td>027</td><td><b>Treinamento NR</b></td><td>Rumo MT</td><td>Ana Costa</td><td>20/09/2026</td><td><span class="status-pill warn">Em andamento</span></td><td>3</td></tr><tr><td>031</td><td><b>Veículo – revisão</b></td><td>São Simão</td><td>Frota</td><td>25/09/2026</td><td><span class="status-pill warn">Em andamento</span></td><td>8</td></tr><tr><td>035</td><td><b>F33 não preenchido</b></td><td>Rio Verde</td><td>Supervisor</td><td>26/09/2026</td><td><span class="status-pill warn">Em andamento</span></td><td>9</td></tr><tr><td>041</td><td><b>Ocorrência acesso</b></td><td>Santos</td><td>Equipe</td><td>28/09/2026</td><td><span class="status-pill open">Aberta</span></td><td>11</td></tr></tbody></table></div></div>
       <div class="panel status-card"><h2>Status das demandas</h2><div class="donut"><div><strong id="donutTotal">61</strong><span>demandas</span></div></div><div class="legend"><p><i class="dot red"></i>Vencidas <b id="legendLate">0 (0%)</b></p><p><i class="dot orange"></i>Vencendo <b id="legendDue">0 (0%)</b></p><p><i class="dot yellow"></i>Em andamento <b id="legendProgress">0 (0%)</b></p><p><i class="dot green"></i>Resolvidas <b id="legendDone">0 (0%)</b></p></div></div>
     </div>
     <div class="shortcuts">
@@ -66,5 +74,9 @@
 </main></div>
 <dialog id="dialog"><form id="demandForm"><h3>Nova demanda</h3><label>Demanda<input name="title" required></label><label>Unidade<select id="unitSelect" name="unit"></select></label><label>Responsável<input name="owner" required></label><label>Prioridade<select name="priority"><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select></label><label>Status<select name="status"><option>Aberta</option><option>Em andamento</option><option>Concluída</option><option>Cancelada</option></select></label><label>Data de vencimento<input type="date" name="due_date"></label><div class="actions"><button type="button" class="ghost" id="cancelBtn">Cancelar</button><button>Salvar</button></div></form></dialog>
 <dialog id="moduleDialog"></dialog>
-<script src="app.js"></script>
+<script src="app.js?v=20260917-7"></script>
+<script>
+/* Se algum script externo falhar, o painel continua visível. */
+window.addEventListener('load',()=>{document.querySelector('#mainNav')?.style.setProperty('display','grid','important');document.querySelector('#dashboardView')?.style.setProperty('display','block','important')});
+</script>
 </body></html>
