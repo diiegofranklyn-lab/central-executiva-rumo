@@ -1,1 +1,1 @@
-body{margin:0;font-family:Inter,system-ui,sans-serif;background:#f4f7fa;color:#102344}.shell{display:flex;min-height:100vh}.sidebar{width:260px;background:linear-gradient(180deg,#062d5d,#03172f);color:#fff}.main{flex:1;margin-left:0;background:#f4f7fa}.nav a.active{background:#0874d1;color:#fff}
+@import url("theme.css");
