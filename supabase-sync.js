@@ -1,11 +1,12 @@
 (()=>{
   const C=window.RUMO_SUPABASE_CONFIG;
   if(!C)return;
-  const KEY='rumo_app_v4',DELKEY='rumo_deleted_demands',base=C.url+'/rest/v1/';
+  const KEY='rumo_app_v4',DELKEY='rumo_deleted_demands',UNITDEL='rumo_deleted_units_v1',base=C.url+'/rest/v1/';
   const headers=(method)=>({'apikey':C.key,'Authorization':'Bearer '+C.key,'Content-Type':'application/json','Prefer':method==='POST'?'resolution=merge-duplicates,return=representation':'return=representation'});
   const api=async(path,opts={})=>{const r=await fetch(base+path,{...opts,cache:'no-store',headers:{...headers(opts.method),...(opts.headers||{})}});if(!r.ok)throw new Error(await r.text());return r.status===204?[]:r.json()};
   const getLocal=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null}};
   const getDeleted=()=>{try{return JSON.parse(localStorage.getItem(DELKEY)||'[]').map(String)}catch{return[]}};
+  const getDeletedUnits=()=>{try{return JSON.parse(localStorage.getItem(UNITDEL)||'[]').map(String)}catch{return[]}};
   const rawSet=Storage.prototype.setItem;
   const saveLocal=db=>rawSet.call(localStorage,KEY,JSON.stringify(db));
   let syncing=false;
@@ -14,11 +15,12 @@
     const db=getLocal();if(!db)return;
     syncing=true;
     try{
-      const deleted=new Set(getDeleted());
+      const deleted=new Set(getDeleted()),deletedUnits=new Set(getDeletedUnits());
       for(const id of deleted){if(/^\d+$/.test(id))await api('demands?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{Prefer:'return=minimal'}})}
-      const localUnits=Array.isArray(db.unidades)?db.unidades.filter(u=>u&&u.name):[];
-      for(const u of localUnits)await api('units?on_conflict=name',{method:'POST',body:JSON.stringify({name:String(u.name).trim(),city:String(u.city||'').trim(),state:String(u.state||'').trim().toUpperCase(),active:u.active!==false})});
-      const serverUnits=await api('units?select=*&order=id');
+      for(const id of deletedUnits){if(/^\d+$/.test(id))await api('units?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{Prefer:'return=minimal'}})}
+      const localUnits=Array.isArray(db.unidades)?db.unidades.filter(u=>u&&u.name&&!deletedUnits.has(String(u.id))):[];
+      for(const u of localUnits)await api('units?on_conflict=name',{method:'POST',upsert:true,body:JSON.stringify({name:String(u.name).trim(),city:String(u.city||'').trim(),state:String(u.state||'').trim().toUpperCase(),active:u.active!==false})});
+      const serverUnits=(await api('units?select=*&order=id')).filter(u=>!deletedUnits.has(String(u.id)));
       const byName=new Map(serverUnits.map(u=>[String(u.name).trim().toLowerCase(),u]));
       const demands=Array.isArray(db.demandas)?db.demandas.filter(d=>d&&d.title&&!deleted.has(String(d.db_id||d.id))):[];
       for(const d of demands){
@@ -37,10 +39,11 @@
     syncing=true;
     try{
       const [units,demands]=await Promise.all([api('units?select=*&order=id'),api('demands?select=*&order=created_at.desc')]);
-      const deleted=new Set(getDeleted());
+      const deleted=new Set(getDeleted()),deletedUnits=new Set(getDeletedUnits());
       const current=getLocal()||{ocorrencias:[],veiculos:[],efetivo:[],crachas:[],treinamentos:[],auditorias:[],usuarios:[]};
+      const filteredUnits=units.filter(u=>!deletedUnits.has(String(u.id)));
       const mapped=demands.filter(d=>!deleted.has(String(d.id))).map(d=>({id:String(d.id).padStart(3,'0'),db_id:d.id,title:d.title,description:d.description||'',unit:(units.find(u=>u.id===d.unit_id)||{}).name||'—',owner:d.owner||'',priority:d.priority||'Média',status:d.status||'Aberta',due_date:d.due_date||''}));
-      rawSet.call(localStorage,KEY,JSON.stringify({...current,unidades:units,demandas:mapped}));
+      rawSet.call(localStorage,KEY,JSON.stringify({...current,unidades:filteredUnits,demandas:mapped}));
     }finally{syncing=false}
     if(typeof window.__RUMO_RENDER==='function')window.__RUMO_RENDER();
   };
