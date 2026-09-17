@@ -18,8 +18,6 @@
       const deleted=new Set(getDeleted()),deletedUnits=new Set(getDeletedUnits());
       for(const id of deleted){if(/^\d+$/.test(id))await api('demands?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{Prefer:'return=minimal'}})}
       for(const id of deletedUnits){if(/^\d+$/.test(id))await api('units?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{Prefer:'return=minimal'}})}
-      const localUnits=Array.isArray(db.unidades)?db.unidades.filter(u=>u&&u.name&&!deletedUnits.has(String(u.id))):[];
-      for(const u of localUnits)await api('units?on_conflict=name',{method:'POST',upsert:true,body:JSON.stringify({name:String(u.name).trim(),city:String(u.city||'').trim(),state:String(u.state||'').trim().toUpperCase(),active:u.active!==false})});
       const serverUnits=(await api('units?select=*&order=id')).filter(u=>!deletedUnits.has(String(u.id)));
       const byName=new Map(serverUnits.map(u=>[String(u.name).trim().toLowerCase(),u]));
       const demands=Array.isArray(db.demandas)?db.demandas.filter(d=>d&&d.title&&!deleted.has(String(d.db_id||d.id))):[];
@@ -27,7 +25,7 @@
         const unit=byName.get(String(d.unit||'').trim().toLowerCase());
         const row={title:d.title,description:d.description||'',unit_id:unit?.id||null,owner:d.owner||'',priority:d.priority||'Média',status:d.status||'Aberta',due_date:d.due_date||null};
         if(d.db_id)await api('demands?id=eq.'+encodeURIComponent(d.db_id),{method:'PATCH',body:JSON.stringify(row)});
-        else{const created=await api('demands',{method:'POST',body:JSON.stringify(row)});if(created[0])d.db_id=created[0].id;}
+        else{const created=await api('demands',{method:'POST',body:JSON.stringify(row));if(created[0])d.db_id=created[0].id;}
       }
       db.unidades=serverUnits;
       db.demandas=demands;
