@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Acompanhamento Executivo Rumo | Security</title>
-<link rel="stylesheet" href="style.css?v=20260917-7">
+<link rel="stylesheet" href="style.css?v=20260917-11">
 <style>
-/* Garantia visual do dashboard - não depende do JavaScript */
 #mainNav{display:grid!important;visibility:visible!important}
 #mainNav a{display:flex!important;visibility:visible!important}
 #dashboardView{display:block!important;visibility:visible!important}
@@ -74,9 +73,6 @@
 </main></div>
 <dialog id="dialog"><form id="demandForm"><h3>Nova demanda</h3><label>Demanda<input name="title" required></label><label>Unidade<select id="unitSelect" name="unit"></select></label><label>Responsável<input name="owner" required></label><label>Prioridade<select name="priority"><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select></label><label>Status<select name="status"><option>Aberta</option><option>Em andamento</option><option>Concluída</option><option>Cancelada</option></select></label><label>Data de vencimento<input type="date" name="due_date"></label><div class="actions"><button type="button" class="ghost" id="cancelBtn">Cancelar</button><button>Salvar</button></div></form></dialog>
 <dialog id="moduleDialog"></dialog>
-<script src="app.js?v=20260917-7"></script>
-<script>
-/* Se algum script externo falhar, o painel continua visível. */
-window.addEventListener('load',()=>{document.querySelector('#mainNav')?.style.setProperty('display','grid','important');document.querySelector('#dashboardView')?.style.setProperty('display','block','important')});
-</script>
+<script src="app.js?v=20260917-11"></script>
+<script>window.addEventListener('load',()=>{document.querySelector('#mainNav')?.style.setProperty('display','grid','important');document.querySelector('#dashboardView')?.style.setProperty('display','block','important')});</script>
 </body></html>
