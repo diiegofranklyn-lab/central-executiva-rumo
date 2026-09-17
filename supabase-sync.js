@@ -3,7 +3,7 @@
   if(!C)return;
   const KEY='rumo_app_v4',DELKEY='rumo_deleted_demands',base=C.url+'/rest/v1/';
   const headers=(method)=>({'apikey':C.key,'Authorization':'Bearer '+C.key,'Content-Type':'application/json','Prefer':method==='POST'?'resolution=merge-duplicates,return=representation':'return=representation'});
-  const api=async(path,opts={})=>{const r=await fetch(base+path,{...opts,headers:{...headers(opts.method),...(opts.headers||{})}});if(!r.ok)throw new Error(await r.text());return r.status===204?[]:r.json()};
+  const api=async(path,opts={})=>{const r=await fetch(base+path,{...opts,cache:'no-store',headers:{...headers(opts.method),...(opts.headers||{})}});if(!r.ok)throw new Error(await r.text());return r.status===204?[]:r.json()};
   const getLocal=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null}};
   const getDeleted=()=>{try{return JSON.parse(localStorage.getItem(DELKEY)||'[]').map(String)}catch{return[]}};
   const rawSet=Storage.prototype.setItem;
@@ -48,5 +48,5 @@
   localStorage.setItem=(k,v)=>{originalSet(k,v);if(k===KEY&&!syncing)sync().catch(e=>console.warn('Supabase sync:',e));};
   window.RUMO_REFRESH=()=>{if(typeof window.__RUMO_RENDER==='function')window.__RUMO_RENDER();};
   (async()=>{try{await sync();await load();}catch(e){console.warn('Supabase indisponível; mantendo dados locais.',e);}})();
-  setInterval(()=>load().catch(e=>console.warn('Atualização automática:',e)),10000);
+  setInterval(()=>load().catch(e=>console.warn('Atualização automática:',e)),5000);
 })();
