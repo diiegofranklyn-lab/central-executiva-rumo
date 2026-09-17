@@ -1,8 +1,7 @@
-:root{--rumo-train:url('https://upload.wikimedia.org/wikipedia/commons/7/7f/Trem_cargueiro_%28Rumo_Log%C3%ADstica%29%2C_Pinhais.jpg')}
+:root{--rumo-train:url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Trem_cargueiro_(Rumo_Logística),_Pinhais.jpg')}
 
-/* Fotografia real de trem da Rumo, com leitura escura para manter o painel executivo legível. */
-.app aside{background-image:linear-gradient(180deg,rgba(2,31,65,.34),rgba(1,18,38,.92)),var(--rumo-train)!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
-.app aside:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(1,24,52,.06),rgba(1,19,40,.78));pointer-events:none;z-index:-1}
-.hero{background-image:linear-gradient(90deg,rgba(2,31,65,.82),rgba(4,58,100,.48),rgba(1,20,40,.66)),var(--rumo-train)!important;background-size:cover!important;background-position:center 58%!important}
-.hero:before{background:linear-gradient(90deg,rgba(1,24,48,.12),rgba(1,24,48,.04))!important}
+/* Fotografia real de trem da Rumo, aplicada diretamente no painel e na lateral. */
+.app aside{background:linear-gradient(180deg,rgba(2,31,65,.42),rgba(1,18,38,.90)),var(--rumo-train)!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
+.hero{background:linear-gradient(90deg,rgba(2,31,65,.74),rgba(4,58,100,.32),rgba(1,20,40,.70)),var(--rumo-train)!important;background-size:cover!important;background-position:center 55%!important;background-repeat:no-repeat!important}
+.hero:before{background:linear-gradient(180deg,rgba(1,24,48,.04),rgba(1,24,48,.18))!important}
 @media(max-width:700px){.hero{background-position:center!important}.app aside{background-position:center!important}}
